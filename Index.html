@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Downloader</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+        #message {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <button id="downloadButton">Download Video</button>
+    <div id="message"></div>
+
+    <script>
+        async function fetchVideoLink() {
+            try {
+                const link = await navigator.clipboard.readText();
+                if (!link) throw new Error('No link found in clipboard.');
+                document.getElementById('message').textContent = 'Link fetched: ' + link;
+                // Replace this with actual download logic
+                window.location.href = `https://example.com/download?url=${encodeURIComponent(link)}`;
+            } catch (error) {
+                document.getElementById('message').textContent = 'Error: ' + error.message;
+            }
+        }
+        document.getElementById('downloadButton').addEventListener('click', fetchVideoLink);
+    </script>
+</body>
+</html>
